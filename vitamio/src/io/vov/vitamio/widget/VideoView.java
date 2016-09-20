@@ -96,10 +96,7 @@ public class VideoView extends SurfaceView implements MediaController.MediaPlaye
   OnPreparedListener mPreparedListener = new OnPreparedListener() {
     public void onPrepared(MediaPlayer mp) {
       Log.d("onPrepared");
-			if (false) {
-				stopPlayback();
-				return;
-			}
+
 			mCurrentState = STATE_PREPARED;
 			// mTargetState = STATE_PLAYING;
 
@@ -444,7 +441,7 @@ public class VideoView extends SurfaceView implements MediaController.MediaPlaye
 		//	options.put("user-agent", "userAgent");
 		//	options.put("cookies", "cookies");
 			options.put("analyzeduration", "1000000");
-			mMediaPlayer.setDataSource(mContext, mUri, options);
+			mMediaPlayer.setDataSource(mContext, mUri, mHeaders);
 
 			mMediaPlayer.setDisplay(mSurfaceHolder);
 			mMediaPlayer.setBufferSize(mBufSize);
