@@ -22,12 +22,15 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
-import io.vov.vitamio.LibsChecker;
+
+import io.vov.vitamio.Vitamio;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * List
@@ -37,8 +40,8 @@ public class VitamioListActivity extends ListActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if (!LibsChecker.checkVitamioLibs(this))
-			return;
+		Vitamio.isInitialized(getApplicationContext());
+
 		setListAdapter(new SimpleAdapter(this, getData(), android.R.layout.simple_list_item_1, new String[] { "title" }, new int[] { android.R.id.text1 }));
 	}
 
@@ -65,6 +68,18 @@ public class VitamioListActivity extends ListActivity {
 		Map<String, Object> map = (Map<String, Object>) l.getItemAtPosition(position);
 		Intent intent = (Intent) map.get("intent");
 		startActivity(intent);
+	}
+	
+	@Override
+	protected void onResume() {
+	 MobclickAgent.onResume(this);
+	  super.onResume();
+	}
+	
+	@Override
+	protected void onPause() {
+		MobclickAgent.onPause(this);
+	  super.onPause();
 	}
 
 }
