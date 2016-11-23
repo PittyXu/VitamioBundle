@@ -8,6 +8,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
     }
+
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -23,6 +24,6 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
-    debugCompile project(path: ':videoview', configuration: 'debug')
-    releaseCompile project(path: ':videoview', configuration: 'release')
+    debugCompile project(path: ':vitamio', configuration: 'debug')
+    releaseCompile project(path: ':vitamio', configuration: 'release')
 }

@@ -62,6 +62,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * href="http://developer.android.com/guide/topics/media/index.html">Audio and
  * Video</a> for additional help using MediaPlayer.
  */
+@SuppressLint("NewApi")
 public class MediaPlayer {
   public static final int CACHE_TYPE_NOT_AVAILABLE = 1;
   public static final int CACHE_TYPE_START = 2;
@@ -266,7 +267,10 @@ public class MediaPlayer {
     mContext = ctx;
 
     String LIB_ROOT;
-    if(VERSION.SDK_INT > 20) {
+	    if(VERSION.SDK_INT > 23) {
+    	LIB_ROOT = Vitamio.getLibraryPath();
+    }
+    else if(VERSION.SDK_INT > 20) {
         LIB_ROOT = "";
     }
     else{
@@ -308,17 +312,23 @@ public class MediaPlayer {
 
   static {
 	String LIB_ROOT;
-    if(VERSION.SDK_INT > 20) {
-        LIB_ROOT = "";
+    if(VERSION.SDK_INT > 23) {
+    	LIB_ROOT = Vitamio.getLibraryPath();
     }
-    else{
+    else if(VERSION.SDK_INT > 20) {
+        LIB_ROOT = "";
+    }else{
     	LIB_ROOT = Vitamio.getLibraryPath();
     }
     try {
     
-  
-    load_lib(  LIB_ROOT ,  "libstlport_shared.so");
-    load_lib(  LIB_ROOT ,  "libvplayer.so");
+    	if(VERSION.SDK_INT >= 24) {
+        	System.loadLibrary("stlport_shared");
+        	System.loadLibrary("vplayer");
+        }else{
+            load_lib(  LIB_ROOT ,  "libstlport_shared.so");
+            load_lib(  LIB_ROOT ,  "libvplayer.so");	
+        }
     loadFFmpeg_native_lib( LIB_ROOT , "libffmpeg.so");    
       boolean vvo_loaded = false;
       if (Build.VERSION.SDK_INT > 8)

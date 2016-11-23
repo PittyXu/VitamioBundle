@@ -52,8 +52,7 @@ public class VideoViewDemo extends Activity {
 
 	
 	void playfunction(){
-		 String path = "";
-
+		 String path = "http://gslb.miaopai.com/stream/3D~8BM-7CZqjZscVBEYr5g__.mp4";
 		 VideoView mVideoView;
 		 EditText mEditText;
 		mEditText = (EditText) findViewById(R.id.url);
